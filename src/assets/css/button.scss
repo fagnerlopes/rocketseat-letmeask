@@ -1,0 +1,25 @@
+.btn {
+  min-height: 50px;
+  padding: 10px 32px;
+  background-color: #835afd;
+  font-weight: 500;
+  border: 0;
+  color: #f8f8f8;
+  margin-top: 16px;
+  transition: filter 0.2s;
+  border-radius: 8px;
+  cursor: pointer;
+
+  img {
+    margin-right: 8px;
+  }
+
+  &:not(:disabled):hover {
+    filter: brightness(0.9);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
