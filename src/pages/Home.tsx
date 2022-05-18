@@ -3,8 +3,22 @@ import logoImg from "../assets/images/logo.svg";
 import googleIconImg from "../assets/images/google-icon.svg";
 import "../assets/css/auth.scss";
 import { Button } from "../components/Button";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../App";
 
 export function Home() {
+  const navigate = useNavigate();
+  const { user, signInWithGoogle } = useContext(AuthContext);
+
+  async function handleCreateRoom() {
+    if (!user) {
+      await signInWithGoogle();
+    }
+
+    navigate("/rooms/new");
+  }
+
   return (
     <div id="page-auth">
       <aside>
@@ -19,7 +33,7 @@ export function Home() {
         <div className="main-content">
           <img src={logoImg} alt="Logotipo da aplicação Letmeask" />
 
-          <button className="btn-create-room">
+          <button className="btn-create-room" onClick={handleCreateRoom}>
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
           </button>

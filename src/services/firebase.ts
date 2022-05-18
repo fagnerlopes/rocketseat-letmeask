@@ -1,9 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getDatabase, set, get } from "firebase/database";
+import { getAuth, GoogleAuthProvider, UserCredential } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
-
-import "firebase/auth";
-import "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,6 +14,32 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth();
-export const analytics = getAnalytics(app);
+const firebase = initializeApp(firebaseConfig);
+const database = getDatabase(firebase);
+const auth = getAuth();
+const analytics = getAnalytics(firebase);
+
+function getCredentialTokenFromGoogle(data: UserCredential): Object {
+  if (!data) {
+    throw new Error("Failed on get google user credentials and access token");
+  }
+  const credential = GoogleAuthProvider.credentialFromResult(data);
+
+  const token = credential?.accessToken;
+
+  return {
+    credential,
+    userToken: token,
+    userAuthenticated: data.user,
+  };
+}
+
+export {
+  firebase,
+  database,
+  analytics,
+  set,
+  get,
+  auth,
+  getCredentialTokenFromGoogle,
+};
