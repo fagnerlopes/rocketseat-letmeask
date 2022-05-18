@@ -1,10 +1,25 @@
-import illustrationImg from "../assets/images/illustration.svg";
-import logoImg from "../assets/images/logo.svg";
-import "../assets/css/newRoom.scss";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
-import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+
+import logoImg from "../assets/images/logo.svg";
+import illustrationImg from "../assets/images/illustration.svg";
+
+import "../assets/css/newRoom.scss";
 
 export function NewRoom() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  function handleHome(): void {
+    if (!user) {
+      navigate("/");
+    }
+  }
+
+  useEffect(handleHome);
+
   return (
     <div id="page-new-room">
       <aside>
@@ -17,6 +32,7 @@ export function NewRoom() {
       </aside>
       <main>
         <div className="main-content">
+          <h1>{user?.name}</h1>
           <img src={logoImg} alt="Logotipo da aplicação Letmeask" />
 
           <h2>Crie uma nova sala</h2>
