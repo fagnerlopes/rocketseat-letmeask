@@ -8,38 +8,104 @@ import { FormEvent, useEffect, useState } from "react";
 import { database } from "../services/firebase";
 import { useAuth } from "../hooks/useAuth";
 import { RoomCode } from "../components/RoomCode";
+import { toast } from "react-toastify";
 
 type RoomParams = {
   id: string;
 };
 
+type Question = {
+  id: string;
+  author: {
+    id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  content: string;
+  isHighlighted: boolean;
+  isAnswered: boolean;
+};
+
+type FirebaseQuestions = Record<
+  string,
+  {
+    author: {
+      id: string;
+      name: string;
+      email: string;
+      avatar: string;
+    };
+    content: string;
+    isHighlighted: boolean;
+    isAnswered: boolean;
+  }
+>;
+
 export function Room() {
   const params = useParams<RoomParams>();
   const { user, signInWithGoogle } = useAuth();
 
-  //useEffect(handleInitializeQuestions);
-
   const [newQuestion, setNewQuestion] = useState("");
-  const [questionItems, setQuestionItems] = useState([]);
+  const [questionItems, setQuestionItems] = useState<Question[]>([]);
+  const [title, setTitle] = useState<string>("");
 
-  async function handleCreateQuestion(event: FormEvent) {
+  useEffect(() => {
+    const roomRef = database.ref(`rooms/${params.id}`);
+
+    roomRef.on("value", (room) => {
+      const databaseRoom = room.val();
+      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+
+      const parseQuestions = Object.entries(firebaseQuestions).map(
+        ([key, value]) => {
+          return {
+            id: key,
+            content: value.content,
+            author: value.author,
+            isHighlighted: value.isHighlighted,
+            isAnswered: value.isAnswered,
+          };
+        }
+      );
+      setTitle(databaseRoom.title);
+      setQuestionItems(parseQuestions);
+    });
+  }, [params.id]);
+
+  async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
 
     if (newQuestion.trim() === "") {
       return;
     }
 
+    if (!user) {
+      toast.error("You need are logged!");
+      return;
+    }
+
     let questionRef = database.ref(`rooms/${params.id}/questions`);
 
-    await questionRef.push({
-      description: newQuestion,
-      authorId: user?.id,
+    const result = await questionRef.push({
+      content: newQuestion,
+      author: {
+        id: user?.id,
+        name: user.name,
+        avatar: user.avatar,
+      },
+      isHighlighted: false,
+      isAnswered: false,
     });
 
+    if (!result.key) {
+      toast.error("There was an error sending the question!");
+    }
+
+    toast.success("Message has been sent!");
     setNewQuestion("");
 
-    const questions = await handleGetQuestions();
-    setQuestionItems(questions);
+    handleGetQuestions();
   }
 
   async function handleGetQuestions() {
@@ -47,7 +113,7 @@ export function Room() {
       await database.ref(`rooms/${params.id}/questions`).get()
     ).exportVal();
     console.log(questions);
-    return questions;
+    setQuestionItems(questions);
   }
 
   return (
@@ -63,24 +129,40 @@ export function Room() {
 
       <main className="content">
         <section className="room-title">
-          <h1>Sala React Q&A</h1>
-          <span>4 perguntas</span>
+          <h1>{`Sala ${title} Q&A`}</h1>
+          {questionItems.length > 0 && (
+            <span>{`${questionItems.length} pergunta(s)`}</span>
+          )}
         </section>
 
-        <form onSubmit={handleCreateQuestion}>
+        <form onSubmit={handleSendQuestion}>
           <textarea
             placeholder="O que você quer perguntar?"
             onChange={(event) => setNewQuestion(event.target.value)}
+            value={newQuestion}
           />
           <div className="form-footer">
-            <span>
-              Para enviar uma pergunta,{" "}
-              <button type="button">faça o login.</button>
-            </span>
-            <Button type="submit">Enviar pergunta</Button>
+            {user ? (
+              <div className="user-info">
+                <img src={user.avatar} alt={user.name ?? ""} />
+                <span>{user.name}</span>
+              </div>
+            ) : (
+              <span>
+                Para enviar uma pergunta,{" "}
+                <button type="button">faça login.</button>
+              </span>
+            )}
+
+            <Button type="submit" disabled={!user}>
+              Enviar pergunta
+            </Button>
           </div>
         </form>
-        <Question description="Teste" />
+        {JSON.stringify(questionItems)}
+
+        {}
+        <Question items={questionItems} />
       </main>
     </div>
   );

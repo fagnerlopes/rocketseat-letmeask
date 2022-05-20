@@ -44,6 +44,7 @@
 
     form {
       position: relative;
+      margin-bottom: 30px;
 
       textarea {
         resize: vertical;
@@ -67,7 +68,7 @@
         margin-top: 10px;
         color: #29292e;
 
-        span {
+        > span {
           font-size: 14px;
           color: #737388;
           font-weight: 500;
@@ -79,6 +80,21 @@
             text-decoration: underline;
             font-size: 14px;
             font-weight: 500;
+          }
+        }
+        .user-info {
+          display: flex;
+          align-items: center;
+          img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+
+          > span {
+            font-weight: 500;
+            font-size: 14px;
           }
         }
       }

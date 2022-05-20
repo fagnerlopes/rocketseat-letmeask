@@ -2,6 +2,7 @@ import copyImg from "../assets/images/copy.svg";
 
 import "../assets/css/room-code.scss";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 type RoomCodeProps = {
   code: string;
@@ -18,11 +19,7 @@ export function RoomCode(props: RoomCodeProps) {
 
   function copyRoomCodeToClipboard() {
     navigator.clipboard.writeText(props.code);
-    showNotifyWhenCopiedToClipbard();
-  }
-
-  function showNotifyWhenCopiedToClipbard() {
-    setSHowClass(showClass ? "" : "show-notify");
+    toast.success("Código copiado!");
   }
 
   return (
@@ -33,7 +30,6 @@ export function RoomCode(props: RoomCodeProps) {
         </div>
         <span>{props.code}</span>
       </button>
-      <div className={`notification ${showClass}`}>Código da sala copiado!</div>
     </div>
   );
 }

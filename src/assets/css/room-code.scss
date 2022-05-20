@@ -29,19 +29,3 @@
     color: #737388;
   }
 }
-
-.notification {
-  position: absolute;
-  background: transparent;
-  margin-top: 10px;
-  color: green;
-  font-size: 14px;
-  display: none;
-  opacity: 0;
-}
-
-.show-notify {
-  opacity: 1;
-  display: block;
-  transition: opacity 3s ease-out;
-}

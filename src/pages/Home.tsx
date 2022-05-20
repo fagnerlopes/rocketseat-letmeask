@@ -8,7 +8,6 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { database } from "../services/firebase";
 
-import "react-toastify/dist/ReactToastify.css";
 import "../assets/css/auth.scss";
 
 export function Home() {
