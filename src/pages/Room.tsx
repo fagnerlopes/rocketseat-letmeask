@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import logoImg from "../assets/images/logo.svg";
+import likeImg from "../assets/images/like.svg";
 import { Button } from "../components/Button";
 
 import "../assets/css/room.scss";
@@ -106,7 +107,14 @@ export function Room() {
                 key={item.id}
                 content={item.content}
                 author={item.author}
-              ></Question>
+              >
+                <div className="question-likes">
+                  <span>16</span>
+                  <button>
+                    <img src={likeImg} alt="Like" />
+                  </button>
+                </div>
+              </Question>
             );
           })}
         </div>

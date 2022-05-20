@@ -6,6 +6,7 @@ import { Room } from "./pages/Room";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { AdminRoom } from "./pages/AdminRoom";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/rooms/new" element={<NewRoom />} />
             <Route path="/rooms/:id" element={<Room />} />
+            <Route path="/admin/rooms/:id" element={<AdminRoom />} />
           </Routes>
         </AuthContextProvider>
       </BrowserRouter>

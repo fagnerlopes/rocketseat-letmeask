@@ -2,6 +2,7 @@ import avatarImg from "../assets/images/avatar.svg";
 import likeImg from "../assets/images/like.svg";
 
 import "../assets/css/question.scss";
+import { ReactNode } from "react";
 
 type QuestionProps = {
   content: string;
@@ -9,6 +10,8 @@ type QuestionProps = {
     name: string;
     avatar: string;
   };
+} & {
+  children: ReactNode;
 };
 
 export function Question(props: QuestionProps) {
@@ -21,12 +24,7 @@ export function Question(props: QuestionProps) {
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </div>
-        <div className="question-likes">
-          <span>16</span>
-          <button>
-            <img src={likeImg} alt="Like" />
-          </button>
-        </div>
+        {props.children}
       </footer>
     </div>
   );
