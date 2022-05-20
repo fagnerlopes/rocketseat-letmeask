@@ -1,9 +1,7 @@
-import avatarImg from "../assets/images/avatar.svg";
-import likeImg from "../assets/images/like.svg";
-
 import "../assets/css/question.scss";
 import { ReactNode } from "react";
 
+// passando dois objetos como props inclusive o conteúdo dinámico do card
 type QuestionProps = {
   content: string;
   author: {
