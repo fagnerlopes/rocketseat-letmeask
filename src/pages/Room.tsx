@@ -4,74 +4,22 @@ import { Button } from "../components/Button";
 
 import "../assets/css/room.scss";
 import { Question } from "../components/Question";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { database } from "../services/firebase";
 import { useAuth } from "../hooks/useAuth";
 import { RoomCode } from "../components/RoomCode";
 import { toast } from "react-toastify";
+import { useRoom } from "../hooks/useRoom";
 
 type RoomParams = {
   id: string;
 };
 
-type Question = {
-  id: string;
-  author: {
-    id: string;
-    name: string;
-    email: string;
-    avatar: string;
-  };
-  content: string;
-  isHighlighted: boolean;
-  isAnswered: boolean;
-};
-
-type FirebaseQuestions = Record<
-  string,
-  {
-    author: {
-      id: string;
-      name: string;
-      email: string;
-      avatar: string;
-    };
-    content: string;
-    isHighlighted: boolean;
-    isAnswered: boolean;
-  }
->;
-
 export function Room() {
   const params = useParams<RoomParams>();
-  const { user, signInWithGoogle } = useAuth();
-
+  const { user } = useAuth();
   const [newQuestion, setNewQuestion] = useState("");
-  const [questionItems, setQuestionItems] = useState<Question[]>([]);
-  const [title, setTitle] = useState<string>("");
-
-  useEffect(() => {
-    const roomRef = database.ref(`rooms/${params.id}`);
-
-    roomRef.on("value", (room) => {
-      const databaseRoom = room.val();
-      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
-
-      const parseQuestions = Object.entries(firebaseQuestions).map(
-        ([key, value]) => {
-          return {
-            id: key,
-            content: value.content,
-            author: value.author,
-            isHighlighted: value.isHighlighted,
-            isAnswered: value.isAnswered,
-          };
-        }
-      );
-      setTitle(databaseRoom.title);
-      setQuestionItems(parseQuestions);
-    });
-  }, [params.id]);
+  const { questionItems, title } = useRoom(params.id || "");
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -104,16 +52,6 @@ export function Room() {
 
     toast.success("Message has been sent!");
     setNewQuestion("");
-
-    handleGetQuestions();
-  }
-
-  async function handleGetQuestions() {
-    let questions = await (
-      await database.ref(`rooms/${params.id}/questions`).get()
-    ).exportVal();
-    console.log(questions);
-    setQuestionItems(questions);
   }
 
   return (
