@@ -66,13 +66,40 @@
         display: flex;
         flex-direction: column;
 
+        .outline-danger {
+          border: 3px solid rgb(199, 86, 86);
+        }
+
+        .animation-danger {
+          animation: treme 0.1s;
+          animation-iteration-count: 4;
+        }
+
+        @keyframes treme {
+          0% {
+            margin-left: 0;
+          }
+          25% {
+            margin-left: 8px;
+          }
+          50% {
+            margin-left: 0;
+          }
+          75% {
+            margin-left: -8px;
+          }
+          100% {
+            margin-left: 0;
+          }
+        }
+
         input {
           height: 50px;
           border-radius: 8px;
           padding: 0 16px;
           background-color: #fff;
           border: 1px solid #a8a8b3;
-
+          margin-bottom: 10px;
           &:focus {
             outline: none;
           }

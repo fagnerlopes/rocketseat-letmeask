@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../services/firebase";
+import { auth, firebase } from "../services/firebase";
 
 type UserType = {
   id: string;
@@ -48,11 +47,11 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
   }, []);
 
   async function signInWithGoogle(): Promise<void> {
-    const provider = new GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope("profile");
     provider.addScope("email");
 
-    const result = await signInWithPopup(auth, provider);
+    const result = await auth.signInWithPopup(provider);
 
     if (!result.user) {
       throw new Error("Failed Google authentication.");
