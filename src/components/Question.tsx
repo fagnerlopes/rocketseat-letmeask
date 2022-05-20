@@ -3,44 +3,31 @@ import likeImg from "../assets/images/like.svg";
 
 import "../assets/css/question.scss";
 
-type Question = {
+type QuestionProps = {
   content: string;
   author: {
-    id: string;
     name: string;
     avatar: string;
   };
-  isHighlighted: boolean;
-  isAnswered: boolean;
 };
 
-type QuestionItemsProp = {
-  items: Array<Question>;
-};
-
-export function Question(props: QuestionItemsProp) {
-  const items = props.items;
-
+export function Question(props: QuestionProps) {
+  const { content, author } = props;
   return (
     <div className="question-card">
-      <div className="question-body">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis alias
-        quibusdam soluta! Animi iste maiores aliquam aut autem, recusandae,
-        necessitatibus suscipit hic tempora aliquid doloribus id? Debitis
-        voluptas autem ad?
-      </div>
-      <div className="question-footer">
+      <div className="question-body">{content}</div>
+      <footer className="question-footer">
         <div className="question-user">
-          <img src={avatarImg} alt="Avatar do usuario" />
-          <span>Rachel Zane</span>
+          <img src={author.avatar} alt={author.name} />
+          <span>{author.name}</span>
         </div>
-        <div className="question-like">
+        <div className="question-likes">
           <span>16</span>
           <button>
             <img src={likeImg} alt="Like" />
           </button>
         </div>
-      </div>
+      </footer>
     </div>
   );
 }

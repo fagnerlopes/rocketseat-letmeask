@@ -159,10 +159,19 @@ export function Room() {
             </Button>
           </div>
         </form>
-        {JSON.stringify(questionItems)}
 
-        {}
-        <Question items={questionItems} />
+        {/* Única maneira de percorrer um array em JSX */}
+        <div className="question-list">
+          {questionItems.map((item) => {
+            return (
+              <Question
+                key={item.id}
+                content={item.content}
+                author={item.author}
+              ></Question>
+            );
+          })}
+        </div>
       </main>
     </div>
   );
