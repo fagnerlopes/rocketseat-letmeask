@@ -37,7 +37,7 @@ export function NewRoom() {
 
     setNewRoom("");
 
-    navigate(`/rooms/${firebaseRoom.key}`);
+    navigate(`/admin/rooms/${firebaseRoom.key}`);
   }
 
   return (

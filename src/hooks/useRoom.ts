@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { database } from "../services/firebase";
 import { useAuth } from "./useAuth";
 
@@ -52,6 +53,7 @@ export function useRoom(roomId: string) {
 
     roomRef.on("value", (room) => {
       const databaseRoom = room.val();
+
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
 
       const parseQuestions = Object.entries(firebaseQuestions).map(
