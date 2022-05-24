@@ -11,6 +11,39 @@
   align-items: center;
   justify-content: space-between;
 
+  &.highlighted {
+    background: #e1d9f7;
+    border: 2px solid #835afd;
+
+    .question-footer .question-user span {
+      color: #29292e;
+    }
+  }
+
+  &.answered {
+    background: #696969;
+
+    .question-body {
+      color: #fefefe;
+    }
+
+    .question-footer .question-user span {
+      color: #fefefe;
+    }
+
+    .question-actions {
+      .button-delete {
+        background: none;
+        border: 0;
+        cursor: pointer;
+
+        svg {
+          stroke: #fefefe;
+        }
+      }
+    }
+  }
+
   & + .question-card {
     margin-top: 8px;
   }
@@ -74,6 +107,40 @@
           filter: brightness(0.6);
         }
       }
+    }
+  }
+}
+
+.question-actions {
+  display: flex;
+  gap: 5px;
+
+  .button-action {
+    background: none;
+    border: 0;
+    cursor: pointer;
+
+    svg {
+      fill: none;
+      stroke: #835afd;
+    }
+
+    &.highlighted {
+      svg {
+        fill: #835afd;
+        stroke: #fff;
+      }
+    }
+  }
+
+  .button-delete {
+    background: none;
+    border: 0;
+    cursor: pointer;
+
+    svg {
+      fill: #cf604c;
+      stroke: #cf604c;
     }
   }
 }
