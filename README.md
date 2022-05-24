@@ -78,3 +78,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - Modals Dialogs
 - Block user
 - Share button for admin
+- Mobile
+- Dark Theme
+- PWA
+- Others database (Supabase, Firestore)
+- Node API
+- Styled Components
+- ESLint/Prettier
