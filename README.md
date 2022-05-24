@@ -5,11 +5,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Nodejs v16.15.0
 - NPM v8.5.5
 
+## Demo
+
+[https://dev-rocketseat-letmeask.web.app/](https://dev-rocketseat-letmeask.web.app/)
+
+You can create a new room or join an existing one, for example:<br>
+Room Code: -N2P8YCWBtm9E483k8TV<br>
+Name: "Aula de Python"<br>
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
