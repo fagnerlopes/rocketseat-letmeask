@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+# Letmeask
+
+Create live Q&A rooms.\
+Clear your audience's doubts in real time.\
+
+![Letmeask - Create live Q&A rooms.](screencapture.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -9,9 +14,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [https://dev-rocketseat-letmeask.web.app/](https://dev-rocketseat-letmeask.web.app/)
 
-You can create a new room or join an existing one, for example:<br>
-Room Code: -N2P8YCWBtm9E483k8TV<br>
-Name: "Aula de Python"<br>
+## You can create a new room:
+
+1. Access [https://dev-rocketseat-letmeask.web.app/](https://dev-rocketseat-letmeask.web.app/)
+2. Click "crie uma sala com o Google" to login.
+3. Select a google account and the app will redirect to the room creation screen.
+4. Now just choose a name for the room and share the code room or link so that your students can ask questions in a practical and organized way.
+
+## Or join an existing one, for example:<br>
+
+1. Access [https://dev-rocketseat-letmeask.web.app/](https://dev-rocketseat-letmeask.web.app/)
+   Room Code: -N2mcrbgFenbb5CFLxAV<br>
+   Name: "Aula de Reactjs"<br>
+   Url: [https://dev-rocketseat-letmeask.web.app/rooms/-N2mcrbgFenbb5CFLxAV](https://dev-rocketseat-letmeask.web.app/rooms/-N2mcrbgFenbb5CFLxAV).
 
 ## Available Scripts
 
@@ -50,8 +65,16 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Stacks
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[React documentation](https://reactjs.org/).
+[Firebase Start](https://firebase.google.com/docs/web/setup?authuser=0&%3Bhl=pt&hl=pt).
+[Firebase Authentication](https://firebase.google.com/docs/auth?authuser=0&hl=pt).
+[Firebase Realtime Database](https://firebase.google.com/docs/database?authuser=0&hl=pt).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## TODO
+
+- Modals Dialogs
+- Block user
+- Share button for admin
